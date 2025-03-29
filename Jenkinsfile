@@ -26,7 +26,8 @@ pipeline {
                     sh '''
                     sshpass -p 'pass' ssh -o StrictHostKeyChecking=no root@192.168.0.121 -C "
                     export KUBECONFIG=/etc/kubernetes/admin.conf &&
-                    kubectl version"
+                    kubectl version &&
+                    kubect get nodes"
                     '''
                 }
             }
