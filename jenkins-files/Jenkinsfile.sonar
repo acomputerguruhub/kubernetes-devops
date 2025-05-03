@@ -5,11 +5,20 @@ pipeline {
     }
     
     stages {
-        stage('Checkout Code') {
+        stage('Clone Repository') {
             steps {
-                git clone 'https://github.com/acomputerguruhub/kubernetes-devops.git' // Use your Git repository URL
+                cleanWs()
+                dir("${WORKSPACE}/kubernetes-devops") {
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: "main"]],
+                        userRemoteConfigs: [[
+                        url: https://github.com/acomputerguruhub/kubernetes-devops.git
+                ]]
+            ])
             }
         }
+    }
         
         stage('Build') {
             steps {
